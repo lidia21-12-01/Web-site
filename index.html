@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OFFICE SHIFT 3D</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="app">
+  <section id="rulesScreen" class="screen">
+    <div class="card hero">
+      <div>
+        <div class="ey">Третье лицо · мини-офис</div>
+        <h1>OFFICE <span>SHIFT 3D</span></h1>
+        <p>Рабочая смена с 09:00 до 18:00. Перемещение по офису выполняется свободно: задания выдаются сотрудниками, часть работы выполняется на персональном ПК, а финальный отчёт принимается руководителем.</p>
+        <div class="actions"><button id="rulesContinue" class="primary">ПЕРЕЙТИ К ВХОДУ</button></div>
+      </div>
+      <div class="rules">
+        <div class="rule"><b>Управление</b><span><b style="display:inline;color:#fff">WASD / стрелки</b> — движение. Перетаскивание мышью по сцене — поворот камеры. Колесо — приближение. <b style="display:inline;color:#fff">E</b> или экранная кнопка — взаимодействие.</span></div>
+        <div class="rule"><b>Рабочий день</b><span>Утренние поручения → перерыв → задачи второй половины дня → персональный ПК → итоговый отчёт. Виртуальное время меняется после этапов работы, а не от скорости нажатий.</span></div>
+        <div class="rule"><b>Оценивание</b><span>Баллы формируются по четырём показателям: <b style="display:inline;color:#fff">Анализ, Источники, Риск, Эффективность</b>. Скорость прохождения не является главным критерием.</span></div>
+        <div class="rule"><b>Источники и решения</b><span>Перед решением можно изучать рабочие материалы. Полезные источники усиливают результат, лишние и сомнительные действия могут снижать эффективность.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="loginScreen" class="screen hidden">
+    <div class="card loginCard">
+      <div class="ey">Начало смены</div>
+      <h2>Никнейм сотрудника</h2>
+      <p>Никнейм используется в LIVE-рейтинге. Можно ввести свой или сгенерировать случайный.</p>
+      <input id="nick" maxlength="24" autocomplete="off" placeholder="Например: ByteFox">
+      <div class="actions"><button id="joinBtn" class="primary">НАЧАТЬ СМЕНУ</button><button id="randomBtn" class="secondary">СЛУЧАЙНЫЙ НИКНЕЙМ</button></div>
+      <div id="loginMsg" class="msg">От 2 до 24 символов.</div>
+    </div>
+  </section>
+
+  <section id="game" class="hidden">
+    <div id="viewport"></div>
+    <div id="loading3d">Загрузка <span>&nbsp;3D-офиса…</span></div>
+    <div id="topHud">
+      <div class="hudBlock brand">OFFICE <span>SHIFT 3D</span></div>
+      <div style="display:flex;gap:10px">
+        <div class="hudBlock clock"><small>Рабочее время</small><strong id="clock">09:00</strong></div>
+        <div class="hudBlock playerName" id="identity">—</div>
+      </div>
+    </div>
+    <div id="leftHud">
+      <div class="objective"><b>Текущая цель</b><span id="objective">Получить первые поручения у сотрудников.</span></div>
+      <div class="statusCard"><b>Рабочий день</b><span id="statusText">В офисе · заданий 0/8</span></div>
+      <div class="controls"><kbd>WASD</kbd> / стрелки — движение · мышь — камера · <kbd>E</kbd> — взаимодействие</div>
+    </div>
+    <div id="metricsHud"><div class="ey" style="margin-bottom:9px">Показатели</div><div id="metrics" class="metricGrid"></div><div class="totalScore"><span>Общий балл</span><strong id="score">0</strong></div></div>
+    <div id="interaction" class="hidden"><button id="interactBtn">E</button><div><span id="interactTitle">Взаимодействовать</span><small id="interactSub"></small></div></div>
+    <div id="toast"></div>
+  </section>
+
+  <section id="finishScreen" class="screen hidden">
+    <div class="card finishCard">
+      <div class="ey">18:00 · рабочая смена завершена</div>
+      <h1 id="finalName">—</h1>
+      <div id="finalScore" class="finalScore">0 / 400</div>
+      <div id="finalMetrics" class="finalMetrics"></div>
+      <p id="finalText"></p>
+      <div class="actions" style="justify-content:center"><a href="leaderboard.html"><button class="primary">ОТКРЫТЬ LIVE-РЕЙТИНГ</button></a></div>
+    </div>
+  </section>
+
+  <div id="taskModal" class="modal hidden">
+    <div class="modalCard">
+      <button id="closeTask" class="close">×</button>
+      <div id="taskType" class="ey"></div><h2 id="taskTitle"></h2><p id="taskBrief"></p>
+      <div class="taskCols">
+        <div><div class="ey" style="margin-bottom:9px">Рабочие материалы</div><div id="sourceList" class="list"></div></div>
+        <div><div class="ey" style="margin-bottom:9px">Решение</div><div id="optionList" class="list"></div><button id="submitTask" class="primary" style="width:100%;margin-top:12px" disabled>ЗАФИКСИРОВАТЬ РЕШЕНИЕ</button><div id="taskResult"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="infoModal" class="modal hidden">
+    <div class="modalCard" style="width:min(650px,94vw)"><button id="closeInfo" class="close">×</button><div id="infoEy" class="ey"></div><h2 id="infoTitle"></h2><p id="infoText"></p><div class="actions"><button id="infoAction" class="primary hidden"></button></div></div>
+  </div>
+</div>
+
+<script type="module" src="game-loader.js"></script>
+</body>
+</html>
