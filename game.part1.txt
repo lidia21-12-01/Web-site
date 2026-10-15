@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js';
 
 const CFG=await fetch('https://tzjflwayarzcrwtvcyqo.supabase.co/functions/v1/office-config',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('Не удалось загрузить конфигурацию');return r.json()});
 const U=CFG.url;
